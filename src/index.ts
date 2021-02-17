@@ -2,13 +2,14 @@ const assert = require('assert'),
     fs = require('fs')
 
 type SequenceList = { [key: string]: string[] }
+type NDCJSON = { [key: string]: string | {} | [] }
 
 const {ALLOWED_VERSIONS} = require('./constants/versions.ts'),
     sequencesDir = './src/sequences/'
 
 let debug = false
 let sequences: SequenceList
-let json: { [key: string]: string | {} | [] }
+let json: NDCJSON
 let xml = ''
 
 function setDebug(isDebug?: boolean) {
@@ -48,17 +49,10 @@ async function loadInputFile(filepath: string): Promise<string> {
 
 /**
  * Performs an NDC-compliant json to an NDC-compliant xml conversion
- * @param {string} jsonData
+ * @param {NDCJSON} json
  * @return {string|number} -1 if fail
  */
-function convert(jsonData: string): string | number {
-    try {
-        json = JSON.parse(jsonData);
-    } catch (err) {
-        console.error('Invalid JSON input\n' + err);
-        return -1;
-    }
-
+function convert(json: NDCJSON): string | number {
     const rootElementKey = Object.keys(json)[0];
     parse(json[rootElementKey], rootElementKey, '');
 
@@ -138,18 +132,21 @@ function sub_parse(key: string, el: { [key: string]: any }, xpath: string) {
  * Takes an input JSON file by given path and converts it to a NDC-compatible XML payload.
  * Note tha input JSON should also be NDC-compatible with a particular NDC version.
  *
- * @param {string} inputFilePath
+ * @param {string | {}} inputJSON - path to JSON file or valid JSON object
  * @param {string} version - allowed are 162, 171, 172, 181, 182, 191, 192
  * @param {boolean} debug, optional debug flag
  */
-export default async (inputFilePath: string, version: string, debug?: boolean): Promise<string | number> => {
+export default async (inputJSON: string | NDCJSON, version: string, debug?: boolean): Promise<string | number> => {
     setDebug(debug);
 
     try {
         checkVersion(version);
         sequences = sequences || await loadScheme(version);
-        const inputJSON = await loadInputFile(inputFilePath);
-        return convert(inputJSON);
+        if (typeof inputJSON === 'string') {
+            const inputJSONText = await loadInputFile(inputJSON);
+            json = JSON.parse(inputJSONText);
+        }
+        return convert(json);
     } catch (e) {
         console.error('Error converting NDC json to xml\n' + e);
         return -1;
