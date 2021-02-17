@@ -1,0 +1,141 @@
+{
+  "IATA_AirShoppingRQ": {
+    "$": {
+      "xmlns": "http://www.iata.org/IATA/2015/00/2018.2/IATA_AirShoppingRQ",
+      "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+      "xsi:schemaLocation": "http://www.iata.org/IATA/2015/00/2018.2/IATA_AirShoppingRQ"
+    },
+    "Party": [
+      {
+        "Sender": [
+          {
+            "TravelAgency": [
+              {
+                "AgencyID": [
+                  {
+                    "_": "1234"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "PayloadAttributes": [
+      {
+        "PrimaryLangID": [
+          {
+            "_": "RU"
+          }
+        ],
+        "VersionNumber": [
+          {
+            "_": "18.2"
+          }
+        ]
+      }
+    ],
+    "PointOfSale": [
+      {
+        "Country": [
+          {
+            "CountryCode": [
+              {
+                "_": "RU"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Request": [
+      {
+        "FlightCriteria": [
+          {
+            "OriginDestCriteria": [
+              {
+                "DestArrivalCriteria": [
+                  {
+                    "IATALocationCode": [
+                      {
+                        "_": "MOW"
+                      }
+                    ]
+                  }
+                ],
+                "OriginDepCriteria": [
+                  {
+                    "Date": [
+                      {
+                        "_": "2021-03-20"
+                      }
+                    ],
+                    "IATALocationCode": [
+                      {
+                        "_": "LED"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Paxs": [
+          {
+            "Pax": [
+              {
+                "PaxID": [
+                  {
+                    "_": "1"
+                  }
+                ],
+                "PTC": [
+                  {
+                    "_": "ADT"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "ShoppingCriteria": [
+          {
+            "CabinTypeCriteria": [
+              {
+                "CabinTypeCode": [
+                  {
+                    "_": "3"
+                  }
+                ]
+              }
+            ],
+            "CarrierCriteria": [
+              {
+                "Carrier": [
+                  {
+                    "AirlineDesigCode": [
+                      {
+                        "_": "SU"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "SpecialNeedsCriteria": [
+              {
+                "Qty": [
+                  {
+                    "_": "50"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
