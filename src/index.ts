@@ -1,15 +1,12 @@
-const assert = require('assert'),
-    fs = require('fs')
+import assert from "assert"
+
+import {ALLOWED_VERSIONS} from "./constants/versions"
 
 type SequenceList = { [key: string]: string[] }
 type NDCJSON = { [key: string]: string | {} | [] }
 
-const {ALLOWED_VERSIONS} = require('./constants/versions.ts'),
-    sequencesDir = './src/sequences/'
-
 let debug = false
 let sequences: SequenceList
-let json: NDCJSON
 let xml = ''
 
 function setDebug(isDebug?: boolean) {
@@ -18,33 +15,6 @@ function setDebug(isDebug?: boolean) {
 
 function checkVersion(version: string) {
     assert(ALLOWED_VERSIONS.indexOf(version) !== -1, 'Unsupported version');
-}
-
-async function loadScheme(version: string): Promise<SequenceList | string> {
-    return new Promise((resolve, reject) => {
-        fs.readFile(
-            `${sequencesDir}sequences-${version}.json`,
-            'utf8',
-            function (err: NodeJS.ErrnoException | null, data: string) {
-                if (err) {
-                    reject('Error reading sequences.json\n' + err.stack)
-                } else {
-                    resolve(JSON.parse(data));
-                }
-            });
-    })
-}
-
-async function loadInputFile(filepath: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        fs.readFile(filepath, 'utf8', function (err: NodeJS.ErrnoException | null, data: string) {
-            if (err) {
-                reject('Error reading input file\n' + err.stack)
-            } else {
-                resolve(data)
-            }
-        });
-    })
 }
 
 /**
@@ -129,26 +99,23 @@ function sub_parse(key: string, el: { [key: string]: any }, xpath: string) {
 }
 
 /**
- * Takes an input JSON file by given path and converts it to a NDC-compatible XML payload.
- * Note tha input JSON should also be NDC-compatible with a particular NDC version.
+ * Takes an input JSON and converts it to a NDC-compatible XML payload.
+ * Note that input JSON should also be NDC-compatible with a particular NDC version.
  *
- * @param {string | {}} inputJSON - path to JSON file or valid JSON object
+ * @param {{}} inputJSON - valid JSON object
  * @param {string} version - allowed are 162, 171, 172, 181, 182, 191, 192
  * @param {boolean} debug, optional debug flag
  */
-export default async (inputJSON: string | NDCJSON, version: string, debug?: boolean): Promise<string | number> => {
+const json2xml = (inputJSON: NDCJSON, version: string, debug?: boolean): string | number => {
     setDebug(debug);
-
     try {
         checkVersion(version);
-        sequences = sequences || await loadScheme(version);
-        if (typeof inputJSON === 'string') {
-            const inputJSONText = await loadInputFile(inputJSON);
-            json = JSON.parse(inputJSONText);
-        }
-        return convert(json);
+        sequences = sequences || require(`./sequences/sequences-${version}`)
+        return convert(inputJSON);
     } catch (e) {
-        console.error('Error converting NDC json to xml\n' + e);
+        console.error('Error converting NDC json to xml\n' + e.stack);
         return -1;
     }
-};
+}
+
+module.exports = json2xml
