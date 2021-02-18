@@ -14,13 +14,11 @@ To install the module use npm install:
 npm i ndc-json2xml
 ```
 
-```javascript
-const json2xml = require('ndc-json2xml');
-```
-
 To use the module provide a valid NDC JSON and get generated XML back:
 
 ```javascript
+const json2xml = require('ndc-json2xml');
+
 const version = "182" // NDC v18.2
 const xml = json2xml({
     "IATA_AirShoppingRQ": {
