@@ -3,11 +3,11 @@
 This module wrapper for NDC json2xml allows you to convert and NDC-compliant JSON payload into a equivalent NDC XML payload. 
 The converter code is originally made by @airtechzone ([https://github.com/airtechzone/ndc-json2xml-js]).
 
-# Versions supported
+## Versions supported
 
 Currently following NDC versions are supported: 16.2, 17.1, 17.2, 18.1, 18.2, 19.1, 19.2.
 
-# Usage
+## Usage
 
 To install the module use npm install:
 ```
