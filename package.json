@@ -4,8 +4,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -28,12 +27,18 @@
   },
   "prettier": {
     "printWidth": 80,
-    "semi": true,
+    "semi": false,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "none",
+    "tabWidth": 4
   },
   "name": "ndc-json2xml",
   "author": "chriss",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisstina/ndc-json2xml"
+  },
+  "homepage": "https://github.com/chrisstina/ndc-json2xml",
   "module": "dist/ndc-json2xml.esm.js",
   "size-limit": [
     {

@@ -1,5 +1,4 @@
 import assert from "assert"
-
 import {ALLOWED_VERSIONS} from "./constants/versions"
 
 type SequenceList = { [key: string]: string[] }
