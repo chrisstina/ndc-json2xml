@@ -15,21 +15,14 @@ npm i ndc-json2xml
 ```
 
 ```javascript
-import json2xml from 'json2xml'
+const json2xml = require('ndc-json2xml');
 ```
 
-To use the module provide either a file with NDC JSON or parsed JSON and get generated XML back in a Promise:
+To use the module provide a valid NDC JSON and get generated XML back:
 
 ```javascript
 const version = "182" // NDC v18.2
-const xml = await json2xml('.some-json-input-182.json', version);
-```
-
-or
-
-```javascript
-const version = "182" // NDC v18.2
-const xml = await json2xml({
+const xml = json2xml({
     "IATA_AirShoppingRQ": {
         "$": {}
     }}, version);
