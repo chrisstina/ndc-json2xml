@@ -1,4 +1,4 @@
-# NDC compliant JSON to XML converter
+# IATA NDC compliant JSON to XML converter
 
 This module wrapper for NDC json2xml allows you to convert and NDC-compliant JSON payload into a equivalent NDC XML payload. 
 The converter code is originally made by @airtechzone ([https://github.com/airtechzone/ndc-json2xml-js]).
