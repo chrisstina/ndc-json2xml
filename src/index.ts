@@ -106,7 +106,8 @@ function sub_parse(key: string, el: { [key: string]: any }, xpath: string) {
  * @param {boolean} debug, optional debug flag
  */
 const json2xml = (inputJSON: NDCJSON, version: string, debug?: boolean): string | number => {
-    setDebug(debug);
+    xml = ''
+    setDebug(debug)
     try {
         checkVersion(version);
         sequences = sequences || require(`./sequences/sequences-${version}`)
