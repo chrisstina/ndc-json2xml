@@ -45,7 +45,11 @@ function sub_parse(key: string, el: { [key: string]: any }, xpath: string) {
     for (let i = 0; i < (xpath.match(/\//g) || []).length - 1; i++) {
         xml += '\t';
     }
-    xml += '<' + key;
+    xml += '<' + key; // attributes
+    if (el === null) { // short form of an empty element
+        xml += ' />\n';
+        return;
+    }
     // attributes
     if ('$' in el) {
         for (const attr in el.$) {
