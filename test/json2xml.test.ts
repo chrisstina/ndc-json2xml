@@ -20,4 +20,14 @@ describe('json 2 xml converter', () => {
             expect(e).toEqual(-1)
         }
     })
+
+    it('handles null values for NDC-18.2 version', () => {
+        const json = JSON.parse(
+            fs.readFileSync('./test/input/182-nulls.json').toString()
+        )
+        const xml = json2xml(json, '182')
+        expect(xml).not.toEqual(-1)
+        expect(xml).not.toContain('undefined')
+        expect(xml).toContain('IATA_AirShoppingRQ')
+    })
 })
